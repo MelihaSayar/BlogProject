@@ -1,0 +1,47 @@
+﻿@model BlogNew.EF.Iletisim
+@{
+    ViewBag.Title = "iletisim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="section-header col-md-12">
+        <h2>İLETİŞİM</h2>
+    </div> <!-- /.section-header -->
+</div>
+<div class="contact-form">
+    <div class="box-content col-md-12">
+        <div class="row">
+            <div class="col-md-7">             
+                <h3 class="contact-title">İletişim Formu</h3>
+                <div class="contact-form-inner">
+                    
+                    @using (Html.BeginForm("SendMailToUser", "Home", FormMethod.Post, new { @id = "contact-form", role = "form" }))
+                    {
+                        <p>
+                            <label for="name">Ad ve Soyad:</label>
+                            @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "form-control", placeholder = "Ad ve Soyadınız..." } })
+                        </p>
+                        <p>
+                            <label for="email">Mail Adresiniz:</label>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Mail Adresiniz" } })
+                        </p>
+                        <p>
+                            <label for="comments">Mesaj:</label>
+                            @Html.TextAreaFor(model => model.Mesaj, new { htmlAttributes = new { @class = "form-control" } })
+                        </p>
+                        <input type="submit" class="mainBtn" id="submit" value="Gönder" />
+                    }
+                        
+                   
+                </div> <!-- /.contact-form-inner -->
+                <div id="message"></div>
+            </div> <!-- /.col-md-7 -->
+            <div class="col-md-5">
+                <div class="googlemap-wrapper">
+                    <div id="map_canvas" class="map-canvas"></div>
+                </div>
+            </div> <!-- /.col-md-5 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.box-content -->
+</div>

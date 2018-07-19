@@ -1,0 +1,72 @@
+﻿@model List<BlogNew.EF.Kategori>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Kategori</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        @if (TempData["Issuccess"] != null)
+        {
+            if (TempData["Result"] != null)
+            {
+                if (Convert.ToBoolean(TempData["issuccess"]))
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> Başarılı!</h5>
+                        @Html.Raw(TempData["Result"])
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-remove"></i> Hata!</h5>
+                        @Html.Raw(TempData["Result"])
+                    </div>
+                }
+            }
+        }
+       
+
+
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 10px">Kategori id</th>
+                <th>Kategori Adı</th>
+                <th>Kayıt Sırası</th>
+                <th>Kullanıcı Adı</th>
+                <th>Kayıt Tarihi</th>
+                <th>İşlem</th>
+            </tr>
+
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width: 10px">@item.Id</td>
+                        <td>@item.KategoriAdi</td>
+                        <td>@item.Sira</td>
+                        <td>@item.Kullanici.AdSoyad</td>
+                        <td>@item.CreateTime</td>                       
+                        <td>
+                            <a href="/Admin/Kategori/Duzenle/@item.Id" class="nav-link">Düzenle</a>
+                            <a href="/Admin/Kategori/Sil/@item.Id" class="nav-link">Sil</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+
+
+
+
+

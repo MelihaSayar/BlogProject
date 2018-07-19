@@ -1,0 +1,28 @@
+﻿@model List<BlogNew.EF.Yorum>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="comment-heading">Yorumlar</h2>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (BlogNew.EF.Yorum item in Model)
+            {
+                <div class="box-content">
+                    <div class="comment">
+                        <div class="comment-inner">
+                            <div class="comment-body">
+                                <h4>@item.AdSoyad</h4>
+                                <span>@item.CreateTime.Value.ToLongDateString()</span><br>
+                                @item.Yorum1
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+
+
+    </div> <!-- /.col-md-12 -->
+</div>

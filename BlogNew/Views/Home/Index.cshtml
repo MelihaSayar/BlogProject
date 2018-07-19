@@ -1,0 +1,58 @@
+﻿@model List<BlogNew.EF.Makale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="section-header col-md-12">
+        <h2>Bu Benim Blogum</h2>
+        <span>Subtitle Goes Here</span>
+    </div> <!-- /.section-header -->
+</div> <!-- /.row -->
+<div class="row">
+    <div class="blog-masonry masonry-true">
+
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (BlogNew.EF.Makale makale in Model)
+        {
+            <div class="post-masonry col-md-4 col-sm-6">
+                <div class="blog-thumb">
+                    <img src="~/Content/Upload/@makale.Resim" alt="" width="300" height="300" >
+                    <div class="overlay-b">
+                        <div class="overlay-inner">
+                            <a href="/Home/Detay/@makale.Id" class="fa fa-link"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-body">
+                    <div class="box-content">
+                        <h3 class="post-title"><a href="/Home/Detay/@makale.Id">@makale.MakaleAdi</a></h3>
+                        <span class="blog-meta">@makale.CreateTime.Value.ToShortDateString()</span>
+                        <p>@makale.MakaleOzeti</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    </div> <!-- /.blog-masonry -->
+</div> <!-- /.row -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="pagination text-center">
+            <ul>
+                <li><a href="javascript:void(0)" class="active">1</a></li>
+                <li><a href="javascript:void(0)">2</a></li>
+                <li><a href="javascript:void(0)">3</a></li>
+                <li><a href="javascript:void(0)">4</a></li>
+                <li><a href="javascript:void(0)">...</a></li>
+                <li><a href="javascript:void(0)">11</a></li>
+            </ul>
+        </div> <!-- /.pagination -->
+    </div> <!-- /.col-md-12 -->
+</div>
+

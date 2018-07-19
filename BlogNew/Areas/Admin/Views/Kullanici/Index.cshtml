@@ -1,0 +1,67 @@
+﻿@model List<BlogNew.EF.Kullanici>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Kullanıcı</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table class="table table-bordered">
+            <tr>
+                @*Başlık hücreleri*@
+                <th style="width: 10px">Kullanıcı id</th> 
+                <th>Ad Soyad</th>
+                <th>Kullanıcı Adı</th>
+                <th>Parola</th>
+                <th>Email</th>
+                <th>Yetki</th>
+                <th>Onay</th>
+                <th>İşlem</th>
+            </tr>
+
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        @*Verileri içeren hücreler*@
+                        <td style="width: 10px">@item.Id</td>
+                        <td>@item.AdSoyad</td>
+                        <td>@item.KullaniciAdi</td>
+                        <td>***</td>  @*Parola*@
+                        <td>@item.Email</td>
+                        <td>@item.KullaniciYetki.Id</td>              
+                        <td>
+                            @if (item.Onay == false)
+                            {
+                                <a href="" class="nav-link">Onayla</a>
+                            }
+                            else
+                            {
+                                <a href="" class="nav-link">Onayı Kaldır</a>
+                            }
+
+
+                        </td>               
+                        <td>
+                            <a href="/Admin/Kullanici/Duzenle/@item.Id" class="nav-link">Düzenle</a>
+                            <a href="/Admin/Kullanici/Sil/@item.Id" class="nav-link">Sil</a>
+                        </td>
+                    </tr>
+
+                }
+            }
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+

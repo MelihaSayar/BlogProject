@@ -1,0 +1,72 @@
+﻿@model BlogNew.EF.Makale
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Makale Ekle</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        @using (Html.BeginForm("Ekle", "Makale", FormMethod.Post, new { @enctype="multipart/form-data"}))
+        {
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Makale Adı</label>
+                    @Html.EditorFor(model => model.MakaleAdi, new { htmlAttributes = new { @class = "form-control", placeholder = "Makale Adı" } })
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Makale Özeti</label>
+                    <div class="form-group">   
+                        @Html.TextAreaFor(model => model.MakaleOzeti, new { @placeholder="Makale Özeti",@class="form-control", rows="3"})                           
+                    </div>                
+                </div>
+
+                <div>
+                    <label for="exampleInputPassword1">Makale Detayı</label>
+                    <div class="mb-3">
+                        @Html.TextAreaFor(model=> model.MakaleDetayi,new { @class="form-control", placeholder = "Place some text here", style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"                   })
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Kategori</label>
+                    @Html.DropDownListFor(model => model.KategoriId, @ViewBag.Kategoriler as SelectList, "Kategori Seçiniz", new { @class = "form-control" })
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Resim Ekle</label>
+                    @Html.EditorFor(a => a.Resim, new { htmlAttributes = new { @class = "form-control", type = "file" } })
+
+                </div>
+                
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Makale Ekle</button>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+@section script{
+    
+    <script>
+
+        $(function () {
+            // bootstrap WYSIHTML5 - text editor
+            $('#MakaleDetayi').wysihtml5({
+            toolbar: { fa: true }
+            })
+        })
+    </script>
+}
+

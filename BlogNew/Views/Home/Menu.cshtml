@@ -1,0 +1,12 @@
+﻿@model List<BlogNew.EF.Kategori>
+
+
+        <li><a href="/Home/">Anasayfa</a></li>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (BlogNew.EF.Kategori kategori in Model)
+            {
+                <li><a href="/Home/KategoriDetay/@kategori.Id">@kategori.KategoriAdi</a></li>
+            }
+        }
+        <li><a href="/Home/Iletisim/">İLETİŞİM</a></li>

@@ -1,0 +1,50 @@
+﻿@model BlogNew.EF.Makale
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="blog-image col-md-12">
+        <img src="~/Content/Upload/@Model.Resim" alt="@Model.MakaleAdi">
+    </div> <!-- /.blog-image -->
+    <div class="blog-info col-md-12">
+        <div class="box-content">
+            <h2 class="blog-title">@Model.MakaleAdi</h2>
+            <span class="blog-meta">@Model.CreateTime.Value.ToShortDateString()</span>
+            @Model.MakaleDetayi
+
+        </div>
+    </div> <!-- /.blog-info -->
+</div>
+
+
+
+
+@Html.Action("Yorumlar", "Home", new { @id = Model.Id })
+
+
+   
+
+
+
+@if (TempData["Issuccess"] != null)
+{   
+        if (Convert.ToBoolean(TempData["issuccess"]))
+        {
+            <div class="alert-success">
+                <strong>Başarılı!</strong>
+                <p>İşleminiz Başarılı Bir Şekilde Gerçekleşmiştir</p>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <strong>Hata!</strong>
+                <p>Bir Hata Oluştu!!! Lütfen Tekrar Deneyiniz</p>
+            </div>
+        }
+
+
+}
+@Html.Action("YorumYap", "Home", new { @id = Model.Id })

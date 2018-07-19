@@ -1,0 +1,32 @@
+﻿@model List<BlogNew.EF.Makale>
+@{
+    ViewBag.Title = "KategoriDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (BlogNew.EF.Makale makale in Model)
+    {
+        <div class="post-masonry col-md-4 col-sm-6">
+            <div class="blog-thumb">
+                <img src="~/Content/Upload/@makale.Resim" alt="" width="300" height="300">
+                <div class="overlay-b">
+                    <div class="overlay-inner">
+                        <a href="/Home/Detay/@makale.Id" class="fa fa-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-body">
+                <div class="box-content">
+                    <h3 class="post-title"><a href="/Home/Detay/@makale.Id">@makale.MakaleAdi</a></h3>
+                    <span class="blog-meta">@makale.CreateTime.Value.ToShortDateString()</span>
+                    <p>@makale.MakaleOzeti</p>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+

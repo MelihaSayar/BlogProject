@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlogProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BlogProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Iletisim" EntityType="BlogProjectModel.Iletisim" />
+    <EntitySet Name="Kategori" EntityType="BlogProjectModel.Kategori" />
+    <EntitySet Name="Kullanici" EntityType="BlogProjectModel.Kullanici" />
+    <EntitySet Name="KullaniciYetki" EntityType="BlogProjectModel.KullaniciYetki" />
+    <EntitySet Name="Makale" EntityType="BlogProjectModel.Makale" />
+    <EntitySet Name="sysdiagrams" EntityType="BlogProjectModel.sysdiagrams" />
+    <EntitySet Name="Yorum" EntityType="BlogProjectModel.Yorum" />
+    <AssociationSet Name="FK_Kategori_Kullanici" Association="BlogProjectModel.FK_Kategori_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Kategori" EntitySet="Kategori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Makale_Kategori" Association="BlogProjectModel.FK_Makale_Kategori">
+      <End Role="Kategori" EntitySet="Kategori" />
+      <End Role="Makale" EntitySet="Makale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanici_KullaniciYetki" Association="BlogProjectModel.FK_Kullanici_KullaniciYetki">
+      <End Role="KullaniciYetki" EntitySet="KullaniciYetki" />
+      <End Role="Kullanici" EntitySet="Kullanici" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Makale_Kullanici" Association="BlogProjectModel.FK_Makale_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Makale" EntitySet="Makale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yorum_Makale" Association="BlogProjectModel.FK_Yorum_Makale">
+      <End Role="Makale" EntitySet="Makale" />
+      <End Role="Yorum" EntitySet="Yorum" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Iletisim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Mesaj" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Kategori">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sira" Type="Int32" />
+    <Property Name="CreateUserId" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Kullanici" Relationship="BlogProjectModel.FK_Kategori_Kullanici" FromRole="Kategori" ToRole="Kullanici" />
+    <NavigationProperty Name="Makale" Relationship="BlogProjectModel.FK_Makale_Kategori" FromRole="Kategori" ToRole="Makale" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Yetki" Type="Int32" />
+    <Property Name="Onay" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Kategori" Relationship="BlogProjectModel.FK_Kategori_Kullanici" FromRole="Kullanici" ToRole="Kategori" />
+    <NavigationProperty Name="KullaniciYetki" Relationship="BlogProjectModel.FK_Kullanici_KullaniciYetki" FromRole="Kullanici" ToRole="KullaniciYetki" />
+    <NavigationProperty Name="Makale" Relationship="BlogProjectModel.FK_Makale_Kullanici" FromRole="Kullanici" ToRole="Makale" />
+  </EntityType>
+  <EntityType Name="KullaniciYetki">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YetkiAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Kullanici" Relationship="BlogProjectModel.FK_Kullanici_KullaniciYetki" FromRole="KullaniciYetki" ToRole="Kullanici" />
+  </EntityType>
+  <EntityType Name="Makale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MakaleAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MakaleOzeti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="MakaleDetayi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Resim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KategoriId" Type="Int32" />
+    <Property Name="CreateUserId" Type="Int32" />
+    <Property Name="Hit" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Kategori" Relationship="BlogProjectModel.FK_Makale_Kategori" FromRole="Makale" ToRole="Kategori" />
+    <NavigationProperty Name="Kullanici" Relationship="BlogProjectModel.FK_Makale_Kullanici" FromRole="Makale" ToRole="Kullanici" />
+    <NavigationProperty Name="Yorum" Relationship="BlogProjectModel.FK_Yorum_Makale" FromRole="Makale" ToRole="Yorum" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Yorum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Yorum1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="MakaleId" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Onay" Type="Boolean" />
+    <NavigationProperty Name="Makale" Relationship="BlogProjectModel.FK_Yorum_Makale" FromRole="Yorum" ToRole="Makale" />
+  </EntityType>
+  <Association Name="FK_Kategori_Kullanici">
+    <End Type="BlogProjectModel.Kullanici" Role="Kullanici" Multiplicity="0..1" />
+    <End Type="BlogProjectModel.Kategori" Role="Kategori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kategori">
+        <PropertyRef Name="CreateUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Makale_Kategori">
+    <End Type="BlogProjectModel.Kategori" Role="Kategori" Multiplicity="0..1" />
+    <End Type="BlogProjectModel.Makale" Role="Makale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategori">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Makale">
+        <PropertyRef Name="KategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanici_KullaniciYetki">
+    <End Type="BlogProjectModel.KullaniciYetki" Role="KullaniciYetki" Multiplicity="0..1" />
+    <End Type="BlogProjectModel.Kullanici" Role="Kullanici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KullaniciYetki">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kullanici">
+        <PropertyRef Name="Yetki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Makale_Kullanici">
+    <End Type="BlogProjectModel.Kullanici" Role="Kullanici" Multiplicity="0..1" />
+    <End Type="BlogProjectModel.Makale" Role="Makale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Makale">
+        <PropertyRef Name="CreateUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yorum_Makale">
+    <End Type="BlogProjectModel.Makale" Role="Makale" Multiplicity="0..1" />
+    <End Type="BlogProjectModel.Yorum" Role="Yorum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Makale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Yorum">
+        <PropertyRef Name="MakaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
